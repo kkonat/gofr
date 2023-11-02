@@ -171,7 +171,7 @@ jobs:
         run: |
           export GOFR_ENV=test
           cd pkg/file
-          go test ./... -v -coverprofile profile.cov -coverpkg=./...
+          sudo go test ./... -v -coverprofile profile.cov -coverpkg=./...
           go tool cover -func profile.cov
 
       - name: Upload Test Coverage to Code Climate
