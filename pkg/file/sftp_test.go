@@ -2,11 +2,13 @@ package file
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"strings"
 	"testing"
 
+	"github.com/google/uuid"
 	pkgSftp "github.com/pkg/sftp"
 	"github.com/stretchr/testify/assert"
 
@@ -225,7 +227,7 @@ func Test_SftpMove(t *testing.T) {
 }
 
 func tempDirSFTP(s sftpClient) (string, error) {
-	tempDir := "testDestination"
+	tempDir := fmt.Sprintf("testDir%v", uuid.NewString())
 
 	s.Chmod(tempDir, 0777)
 
