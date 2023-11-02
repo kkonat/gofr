@@ -152,6 +152,7 @@ jobs:
           mkdir $HOME/sftpData
           chmod -R 777 $HOME/sftpData
           docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d atmoz/sftp myuser:mypass:1001
+          docker exec -it gofr-sftp chmod 755 /home/myuser
 
       - name: Setup FTP Server
         run: |
@@ -171,7 +172,7 @@ jobs:
         run: |
           export GOFR_ENV=test
           cd pkg/file
-          sudo go test ./... -v -coverprofile profile.cov -coverpkg=./...
+          go test ./... -v -coverprofile profile.cov -coverpkg=./...
           go tool cover -func profile.cov
 
       - name: Upload Test Coverage to Code Climate
