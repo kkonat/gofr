@@ -230,7 +230,7 @@ func tempDirSFTP(s sftpClient) (string, error) {
 	tempDir := fmt.Sprintf("testDir%v", uuid.NewString())
 
 	// Create the temporary directory inside the SFTP server.
-	if err := s.Mkdir(tempDir); err != nil {
+	if err := s.Mkdir("/home/myuser/" + tempDir); err != nil {
 		log.NewLogger().Errorf("Error while creating dir:%v", err.Error())
 	}
 
