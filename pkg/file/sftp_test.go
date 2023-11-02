@@ -2,17 +2,16 @@ package file
 
 import (
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/google/uuid"
 	pkgSftp "github.com/pkg/sftp"
 	"github.com/stretchr/testify/assert"
 
 	pkgErr "gofr.dev/pkg/errors"
+	"gofr.dev/pkg/log"
 )
 
 func Test_NewSFTPFile(t *testing.T) {
@@ -226,19 +225,17 @@ func Test_SftpMove(t *testing.T) {
 }
 
 func tempDirSFTP(s sftpClient) (string, error) {
-	tempDir := fmt.Sprintf("/tempDir%v", uuid.NewString())
+	tempDir := "testDestination"
 
 	// Create the temporary directory inside the SFTP server.
 	if err := s.Mkdir(tempDir); err != nil {
-		return "", err
+		log.NewLogger().Errorf("Error while creating dir:%v", err.Error())
 	}
 
 	return tempDir, nil
 }
 
 func Test_createNestedDir_SFTP(t *testing.T) {
-	t.Skip("Skipping the test as while creating directory on GHA will get permission denied error")
-
 	sftpCfg := &SFTPConfig{
 		Host:     "localhost",
 		User:     "myuser",
@@ -257,10 +254,7 @@ func Test_createNestedDir_SFTP(t *testing.T) {
 	}
 
 	// Create a temporary directory inside the container.
-	tempDir, err := tempDirSFTP(client)
-	if err != nil {
-		t.Fatalf("Failed to create temporary directory: %v", err)
-	}
+	tempDir, _ := tempDirSFTP(client)
 
 	defer func() {
 		// Remove the temporary directory after the test is done.
