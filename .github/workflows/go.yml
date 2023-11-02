@@ -152,7 +152,7 @@ jobs:
           mkdir $HOME/sftpData
           chmod -R 777 $HOME/sftpData
           docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d atmoz/sftp myuser:mypass:1001
-          docker exec gofr-sftp chown myuser:mypass /home/myuser
+          docker exec gofr-sftp chmod 755 /home/myuser
 
       - name: Setup FTP Server
         run: |
