@@ -227,6 +227,8 @@ func Test_SftpMove(t *testing.T) {
 func tempDirSFTP(s sftpClient) (string, error) {
 	tempDir := "testDestination"
 
+	s.Chmod(tempDir, 0777)
+
 	// Create the temporary directory inside the SFTP server.
 	if err := s.Mkdir(tempDir); err != nil {
 		log.NewLogger().Errorf("Error while creating dir:%v", err.Error())
