@@ -173,6 +173,9 @@ jobs:
 #          gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators gcloud beta emulators pubsub start --project=test123 \
 #          --host-port=0.0.0.0:8086
 
+      - name: Check MySQL Service Status
+        run: docker exec -i ${{ job.services.mysql.id }} mysql -uroot -ppassword ping
+
       - name: Test
         run: |
           export GOFR_ENV=test
