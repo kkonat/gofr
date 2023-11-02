@@ -146,7 +146,7 @@ jobs:
       - name: Get dependencies
         run: |
           go mod download
-#
+
       - name: Load Schema of Solr
         run: |
           docker run -d --name solr -p 8983:8983 solr:8 -DzkRun;
@@ -179,7 +179,6 @@ jobs:
       - name: Test
         run: |
           export GOFR_ENV=test
-          cd examples/using-mysql
           go test ./... -v -short -coverprofile profile.cov -coverpkg=./...
           go tool cover -func profile.cov
 
