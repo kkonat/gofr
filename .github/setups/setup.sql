@@ -8,8 +8,8 @@ CREATE DATABASE customers;
 USE customers;
 
 -- Create the 'customers' table in the 'public' schema
-CREATE TABLE public.customers (
-                                  id uuid NOT NULL PRIMARY KEY,
+CREATE TABLE customers (
+                                  id VARCHAR(36) NOT NULL PRIMARY KEY,
                                   name VARCHAR(50),
                                   email VARCHAR(50),
                                   phone BIGINT
