@@ -174,7 +174,7 @@ jobs:
 #          --host-port=0.0.0.0:8086
 
       - name: Check MySQL Service Status
-        run: docker exec -i ${{ job.services.mysql.id }} mysql -uroot -ppassword ping
+        run: docker exec -i ${{ job.services.mysql.id }} mysqladmin -uroot -ppassword ping
 
       - name: Test
         run: |
