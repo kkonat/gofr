@@ -153,11 +153,16 @@ jobs:
 #          sleep 10s;
 #          docker exec -i solr sh < .github/setups/solrSchema.sh;
 
+      -  name: Build sftp docker
+         run: |
+           chmod +x pkg/file
+           docker build -t custom-sftp -f pkg/file/Dockerfile
+
       - name: Setup SFTP Server
         run: |
             mkdir $HOME/sftpData
             chmod -R 777 $HOME/sftpData
-            docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d --user root atmoz/sftp myuser:mypass:1001
+            docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d custom-sftp myuser:mypass:1001
 
       - name: Setup FTP Server
         run: |
