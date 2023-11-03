@@ -155,21 +155,16 @@ jobs:
 
       - name: Setup SFTP Server
         run: |
-          mkdir -p $HOME/sftpData
-          chmod -R 777 $HOME/sftpData
-          docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d atmoz/sftp myuser:mypass:1001
-          docker exec gofr-sftp chown -R myuser /home/myuser
-          docker exec gofr-sftp mkdir -p /path/to/target/directory  # Create the target directory
-          docker exec gofr-sftp chown -R myuser /path/to/target/directory
-          docker exec gofr-sftp chmod -R 755 /path/to/target/directory      
+            mkdir $HOME/sftpData
+            chmod -R 777 $HOME/sftpData
+            docker run --name gofr-sftp -v $HOME/upload:/home/myuser -p 2222:22 -d --user root atmoz/sftp myuser:mypass:1001
 
       - name: Setup FTP Server
         run: |
-          mkdir $HOME/ftpData
-          chmod -R 777 $HOME/ftpData
-          docker run -d --name gofr-ftp -v $HOME/ftpData:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=myuser \
-          -e FTP_PASS=mypass -e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 fauria/vsftpd \
-          sh -c "usermod -m -d /root myuser && /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf"
+             mkdir $HOME/ftpData
+             chmod -R 777 $HOME/ftpData
+             docker run -d --name gofr-ftp -v $HOME/ftpData:/home/vsftpd -p 20:20 -p 21:21 -p 21100-21110:21100-21110 -e FTP_USER=myuser \
+             -e FTP_PASS=mypass -e PASV_ADDRESS=127.0.0.1 -e PASV_MIN_PORT=21100 -e PASV_MAX_PORT=21110 fauria/vsftpd
 
 #      - name: Setup Google PubSub
 #        run: |
