@@ -153,10 +153,10 @@ jobs:
 #          sleep 10s;
 #          docker exec -i solr sh < .github/setups/solrSchema.sh;
 
-      -  name: Build sftp docker
-         run: |
-           chmod +x pkg/file
-           docker build -t custom-sftp -f pkg/file/Dockerfile
+      - name: Build sftp docker
+        run: |
+          chmod +x pkg/file
+          docker build -t custom-sftp -f pkg/file/Dockerfile . 
 
       - name: Setup SFTP Server
         run: |
