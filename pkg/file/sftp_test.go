@@ -231,7 +231,7 @@ func tempDirSFTP(s sftpClient) (string, error) {
 
 	// Create the temporary directory inside the SFTP server.
 	if err := s.Mkdir(tempDir); err != nil {
-		log.NewLogger().Errorf("Error while creating dir:%v", err.Error())
+		log.NewLogger().Errorf("Error while creating dir:%v", err)
 	}
 
 	return tempDir, nil
