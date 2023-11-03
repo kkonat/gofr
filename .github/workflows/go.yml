@@ -156,7 +156,8 @@ jobs:
       - name: Build sftp docker
         run: |
           chmod +x pkg/file
-          docker build -t custom-sftp -f ./pkg/file/Dockerfile . 
+          cd pkg/file
+          docker build -t custom-sftp .
 
       - name: Setup SFTP Server
         run: |
